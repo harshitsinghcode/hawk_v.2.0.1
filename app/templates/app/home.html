@@ -1,0 +1,37 @@
+{% extends "app/base.html" %}
+
+{% load static %}
+
+{% block head %}
+    <title>Lobby</title>
+    <style>
+        /* Custom CSS for medium-sized images */
+        .img-medium {
+            max-width: 50%;  /* Adjust the percentage as needed */
+            height: auto;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <!-- Content from index.html with photo -->
+    <div class="container">
+        <div class="mt-2">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="card mt-4">
+            <div class="card-body text-center">
+                <h1>Welcome to Hawks v.2.0.1🎉</h1>
+                <p>The realm of SQL_Injection Testing!</p>
+                <img src="{% static 'app/dj.png' %}" alt="DJ Image" class="img-fluid img-medium">
+            </div>
+        </div>
+    </div>
+{% endblock %}
