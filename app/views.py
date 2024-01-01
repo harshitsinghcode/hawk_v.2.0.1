@@ -72,7 +72,6 @@ def databases(request):
 
 @login_required
 @csrf_exempt
-# sql-injection_vulnerability
 def searchdb(request):
     search_term = request.POST.get('searchTerm', '')
     query = f"SELECT * FROM app_databases WHERE first_name LIKE '%s' COLLATE NOCASE;" % search_term
@@ -86,16 +85,15 @@ def searchdb(request):
     # print(search_term)
     return render(request, 'app/searchdb.html', {'databases': databases})
 
-#  django - orm application
-# def searchdb(request):
-#     if request.method == "POST" and request.headers.get('x-requested-with') == 'XMLHttpRequest':
-#         search_term = request.POST.get('searchTerm')
+def searchdb(request):
+    if request.method == "POST" and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        search_term = request.POST.get('searchTerm')
 
-#         # Use __icontains for case-insensitive search
-#         databases = Databases.objects.filter(first_name__icontains=search_term)
+        # Use __icontains for case-insensitive search
+        databases = Databases.objects.filter(first_name__icontains=search_term)
 
-#         # Render a template with the filtered databases
-#         return render(request, 'app/searchdb.html', {'databases': databases})
-#     else:
-#         # Return an error message if it's not a valid AJAX POST request
-#         return render(request, 'app/databases.html', {'error_message': 'Invalid request'})
+        # Render a template with the filtered databases
+        return render(request, 'app/searchdb.html', {'databases': databases})
+    else:
+        # Return an error message if it's not a valid AJAX POST request
+        return render(request, 'app/databases.html', {'error_message': 'Invalid request'})
